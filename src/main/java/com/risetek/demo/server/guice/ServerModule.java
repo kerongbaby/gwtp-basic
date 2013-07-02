@@ -17,6 +17,7 @@
 package com.risetek.demo.server.guice;
 
 import com.gwtplatform.dispatch.server.guice.HandlerModule;
+import com.risetek.demo.server.oauth.Token;
 
 public class ServerModule extends HandlerModule {
     @Override
