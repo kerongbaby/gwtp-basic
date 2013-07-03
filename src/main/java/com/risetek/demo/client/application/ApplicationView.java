@@ -18,29 +18,32 @@ package com.risetek.demo.client.application;
 
 import javax.inject.Inject;
 
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
 
 public class ApplicationView extends ViewImpl implements ApplicationPresenter.MyView {
-    public interface Binder extends UiBinder<Widget, ApplicationView> {
-    }
-
-    @UiField
-    SimplePanel main;
-
+    final private DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
+    final private HorizontalPanel horizontalPanel = new HorizontalPanel();
+    final private HTMLPanel hello = new HTMLPanel("Hello OpenAPI");
     @Inject
-    public ApplicationView(Binder uiBinder) {
-        initWidget(uiBinder.createAndBindUi(this));
+    public ApplicationView() {
+        dockLayoutPanel.setSize("100%", "600px");
+    	dockLayoutPanel.addNorth(horizontalPanel, 40);
+    	horizontalPanel.setSize("100%", "100%");
+    	horizontalPanel.getElement().getStyle().setBackgroundColor("#1f1f1f");
+    	hello.getElement().getStyle().setColor("#F0F0F0");
+    	horizontalPanel.add(hello);
+        initWidget(dockLayoutPanel);
     }
 
     @Override
     public void setInSlot(Object slot, IsWidget content) {
         if (slot == ApplicationPresenter.SLOT_SetMainContent) {
-            main.setWidget(content);
+        	dockLayoutPanel.add(content);
         } else {
             super.setInSlot(slot, content);
         }
