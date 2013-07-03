@@ -167,5 +167,11 @@
             <version>${jukito.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        	<groupId>org.apache.amber</groupId>
+        	<artifactId>amber-oauth2-dynamicreg-server</artifactId>
+        	<version>0.22-incubating</version>
+        	<type>zip</type>
+        </dependency>
     </dependencies>
 </project>
