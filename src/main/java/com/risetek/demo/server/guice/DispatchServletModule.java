@@ -25,10 +25,11 @@ import com.risetek.demo.server.oauth.Token;
 public class DispatchServletModule extends ServletModule {
     @Override
     public void configureServlets() {
-    	serve("oauth/authorize").with(Authorize.class);
-    	serve("oauth/access_token").with(Token.class);
-    	serve("oauth/get_token_info").with(Token.class);
-    	serve("oauth/revoke").with(Token.class);
+    	System.out.println("configureServlets");
+    	serve("/oauth/authorize").with(Authorize.class);
+    	serve("/oauth/access_token").with(Token.class);
+    	serve("/oauth/get_token_info").with(Token.class);
+    	serve("/oauth/revoke").with(Token.class);
         serve("/" + ActionImpl.DEFAULT_SERVICE_NAME + "*").with(DispatchServiceImpl.class);
     }
 }

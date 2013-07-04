@@ -28,6 +28,7 @@ public class Authorize extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("Authorize doGet");
 		try {
 			String redirectURI = "/";
 			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(

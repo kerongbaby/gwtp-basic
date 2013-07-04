@@ -49,7 +49,7 @@ public class HomePagePresenter extends Presenter<HomePagePresenter.MyView, HomeP
 
 	private static final Auth AUTH = Auth.get();
 
-    private static final String GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/auth";
+    private static final String GOOGLE_AUTH_URL = "/oauth/authorize";
 
     // This app's personal client ID assigned by the Google APIs Console
     // (http://code.google.com/apis/console).
