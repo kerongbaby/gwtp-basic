@@ -173,5 +173,10 @@
         	<version>0.22-incubating</version>
         	<type>zip</type>
         </dependency>
+        <dependency>
+        	<groupId>org.apache.amber</groupId>
+        	<artifactId>amber-oauth2-dynamicreg-common</artifactId>
+        	<version>0.22-incubating</version>
+        </dependency>
     </dependencies>
 </project>
