@@ -28,11 +28,12 @@ public class Authorize extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Authorize doGet");
+
 		try {
 			String redirectURI = "/";
 			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(
 					new MD5Generator());
+			System.out.println("Get oauthIssuerImpl");
 			try {
 				// dynamically recognize an OAuth profile based on request
 				// characteristic (params,
@@ -42,6 +43,7 @@ public class Authorize extends HttpServlet {
 				// some code ....
 
 				redirectURI = oauthRequest.getRedirectURI();
+
 				// build OAuth response
 				OAuthResponse resp = OAuthASResponse
 						.authorizationResponse(req,
@@ -63,58 +65,4 @@ public class Authorize extends HttpServlet {
 			// TODO:
 		}
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			OAuthTokenRequest oauthRequest = null;
-
-			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(
-					new MD5Generator());
-
-			try {
-				oauthRequest = new OAuthTokenRequest(request);
-
-				String authzCode = oauthRequest.getCode();
-
-				// some code
-
-				String accessToken = oauthIssuerImpl.accessToken();
-				String refreshToken = oauthIssuerImpl.refreshToken();
-
-				// some code
-
-				OAuthResponse r = OAuthASResponse
-						.tokenResponse(HttpServletResponse.SC_OK)
-						.setAccessToken(accessToken).setExpiresIn("3600")
-						.setRefreshToken(refreshToken).buildJSONMessage();
-
-				response.setStatus(r.getResponseStatus());
-				PrintWriter pw = response.getWriter();
-				pw.print(r.getBody());
-				pw.flush();
-				pw.close();
-
-				// if something goes wrong
-			} catch (OAuthProblemException ex) {
-
-				OAuthResponse r = OAuthResponse.errorResponse(401).error(ex)
-						.buildJSONMessage();
-
-				response.setStatus(r.getResponseStatus());
-
-				PrintWriter pw = response.getWriter();
-				pw.print(r.getBody());
-				pw.flush();
-				pw.close();
-
-				response.sendError(401);
-			}
-		} catch (OAuthSystemException ex) {
-			// TODO:
-		}
-
-	}
-
 }

@@ -23,55 +23,16 @@ import com.google.inject.Singleton;
 @Singleton
 public class Token extends HttpServlet {
 
-	private static final long serialVersionUID = -6288646608696739714L;
-
-	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			String redirectURI = "/";
-			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(
-					new MD5Generator());
-			try {
-				// dynamically recognize an OAuth profile based on request
-				// characteristic (params,
-				// method, content type etc.), perform validation
-				OAuthAuthzRequest oauthRequest = new OAuthAuthzRequest(req);
-
-				// some code ....
-
-				redirectURI = oauthRequest.getRedirectURI();
-				// build OAuth response
-				OAuthResponse resp = OAuthASResponse
-						.authorizationResponse(req,
-								HttpServletResponse.SC_FOUND)
-						.setCode(oauthIssuerImpl.authorizationCode())
-						.location(redirectURI).buildQueryMessage();
-
-				response.sendRedirect(resp.getLocationUri());
-
-				// if something goes wrong
-			} catch (OAuthProblemException ex) {
-				final OAuthResponse resp = OAuthASResponse
-						.errorResponse(HttpServletResponse.SC_FOUND).error(ex)
-						.location(redirectURI).buildQueryMessage();
-
-				response.sendRedirect(resp.getLocationUri());
-			}
-		} catch (OAuthSystemException ex) {
-			// TODO:
-		}
-	}
+	private static final long serialVersionUID = 8903879613494154947L;
 
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		OAuthTokenRequest oauthRequest = null;
+
+		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
 		try {
-			OAuthTokenRequest oauthRequest = null;
-
-			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(
-					new MD5Generator());
-
 			try {
 				oauthRequest = new OAuthTokenRequest(request);
 
@@ -110,10 +71,7 @@ public class Token extends HttpServlet {
 
 				response.sendError(401);
 			}
-		} catch (OAuthSystemException ex) {
-			// TODO:
+		} catch (OAuthSystemException sex) {
 		}
-
 	}
-
 }

@@ -59,6 +59,10 @@ public class HomePagePresenter extends Presenter<HomePagePresenter.MyView, HomeP
     // identify who the authenticated user is.
     private static final String PLUS_ME_SCOPE = "https://www.googleapis.com/auth/plus.me";
 
+    
+    // OAuth End User Authorization Request
+    // 请求用户授权Token
+    
 	@Override
 	public void Authorize() {
         final AuthRequest req = new AuthRequest(GOOGLE_AUTH_URL, GOOGLE_CLIENT_ID)
