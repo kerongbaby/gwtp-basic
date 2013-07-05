@@ -29,6 +29,17 @@ public class Authorize extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// Stage 1:
+		PrintWriter pw = response.getWriter();
+		pw.print("<html><form><button>YES</button></form></html>");
+		pw.flush();
+		pw.close();
+	}
+
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
 			String redirectURI = "/";
 			OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(
@@ -65,4 +76,5 @@ public class Authorize extends HttpServlet {
 			// TODO:
 		}
 	}
+
 }
